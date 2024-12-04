@@ -1,3 +1,3 @@
-<div>
-    {{-- Care about people's approval and you will be their prisoner. --}}
+<div class="text-red-400 bg-red-100">
+    Welcome blade
 </div>
