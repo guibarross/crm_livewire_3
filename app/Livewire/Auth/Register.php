@@ -27,22 +27,25 @@ class Register extends Component
 
     public function render(): View
     {
-        return view('livewire.auth.register');
+        return view('livewire.auth.register')
+            ->layout('components.layouts.guest');
     }
 
 
-    public function submit(): void 
+    public function submit(): void
     {
-
         $this->validate();
 
-      /** @var \App\Models\User $user */
+        if (User::where('email', $this->email)->exists()) {
+            $this->addError('email', 'O e-mail já está cadastrado.');
+            return;
+        }
 
-      $user =  User::query()->create([
-
+        /** @var \App\Models\User $user */
+        $user = User::query()->create([
             'name' => $this->name,
             'email' => $this->email,
-            'password' => $this->password,
+            'password' => bcrypt($this->password), // Certifique-se de criptografar a senha
         ]);
 
         auth()->login($user);
