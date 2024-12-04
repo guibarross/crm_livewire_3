@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
+
 class Register extends Component
 {
 
