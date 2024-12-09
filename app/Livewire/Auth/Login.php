@@ -13,8 +13,9 @@ use Spatie\LaravelRay\Ray;
 
 class Login extends Component
 {
-    public string $email = null;
-    public string $password = null;
+    public string $email;
+
+    public string $password;
 
     public function render(): View
     {
