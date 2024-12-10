@@ -1,5 +1,5 @@
 <div>
-    <x-card shadow class="mx-auto w-[350px]">
+    <x-card title="Register" shadow class="mx-auto w-[350px]">
         <x-form wire:submit="submit">
             <x-input label="Name" wire:model="name" />
             <x-input label="Email" wire:model="email" />
@@ -8,7 +8,7 @@
 
             <x-slot:actions>
                 <x-button label="Reset" type="reset" />
-                <x-button label="Click me!" class="btn-primary" type="submit" spinner="save" />
+                <x-button label="Register" class="btn-primary" type="submit" spinner="save" />
             </x-slot:actions>
         </x-form>
     </x-card>
