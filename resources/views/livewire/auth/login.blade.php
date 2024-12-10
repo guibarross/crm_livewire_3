@@ -1,7 +1,7 @@
 <div>
     <x-card title="Login" shadow class="mx-auto w-[450px]">
 
-        @if($errors->hasAny(['invalidCredentials', 'rateLimiter']))
+        @if ($errors->hasAny(['invalidCredentials', 'rateLimiter']))
             <x-alert icon="o-exclamation-triangle" class="alert-warning mb-4">
                 @error('invalidCredentials')
                     <span>{{ $message }}</span>
@@ -10,9 +10,8 @@
                 @error('rateLimiter')
                     <span>{{ $message }}</span>
                 @enderror
-                
-            </x-alert>
 
+            </x-alert>
         @endif
 
         <x-form wire:submit="tryToLogin">
@@ -20,8 +19,14 @@
             <x-input label="Password" wire:model="password" type="password" />
 
             <x-slot:actions>
-                <x-button label="Reset" type="reset" />
-                <x-button label="Login" class="btn-primary" type="submit" spinner="save" />
+                <div class="w-full">
+                    <div class="text-center mb-3">
+                        <x-button label="Login" class="btn-primary" type="submit" spinner="save" />
+                    </div>
+                    <div class="text-center">
+                        <a wire:navegate href="{{ route('auth.register') }}" class="link link-primary">I want to create an account</a>
+                    </div>
+                </div>
             </x-slot:actions>
         </x-form>
     </x-card>
