@@ -10,7 +10,7 @@ use Livewire\Volt\Volt;
 
 // Volt::route('/users', 'users.index');
 
-Route::get('/login', Login::class)->name('auth.login');
+Route::get('/login', Login::class)->name('login');
 
 Route::get('/register', Register::class)->name('auth.register');
 

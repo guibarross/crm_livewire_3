@@ -13,7 +13,7 @@
                         <x-button label="Register" class="btn-primary" type="submit" spinner="save" />
                     </div>
                     <div class="text-center">
-                        <a wire:navegate href="{{ route('auth.login') }}" class="link link-primary">I already have an
+                        <a wire:navegate href="{{ route('login') }}" class="link link-primary">I already have an
                             account</a>
                     </div>
                 </div>
