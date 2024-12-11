@@ -5,6 +5,7 @@ namespace App\Livewire\Auth;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use App\Providers\RouteServiceProvider;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
@@ -24,11 +25,10 @@ class Register extends Component
     #[Rule(['required'])]
     public ?string $password = null;
 
-
+    #[Layout('components.layouts.guest')]
     public function render(): View
     {
-        return view('livewire.auth.register')
-            ->layout('components.layouts.guest');
+        return view('livewire.auth.register');
     }
 
 
