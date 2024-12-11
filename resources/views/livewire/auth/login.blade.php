@@ -23,8 +23,11 @@
                     <div class="text-center mb-3">
                         <x-button label="Login" class="btn-primary" type="submit" spinner="save" />
                     </div>
-                    <div class="text-center">
+                    <div class="text-center mb-3">
                         <a wire:navegate href="{{ route('auth.register') }}" class="link link-primary">I want to create an account</a>
+                    </div>
+                    <div class="w-full text-sm text-center">
+                        <a href="{{ route('auth.password.recovery') }}" class="link link-primary">Forgot your password?</a>
                     </div>
                 </div>
             </x-slot:actions>
