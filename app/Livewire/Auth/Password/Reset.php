@@ -17,7 +17,7 @@ class Reset extends Component
 {
     public ?string $token = null;
 
-    #[Rule(['required', 'email', 'confirmed'])]
+    #[Rule(['required', 'email'])]
     public ?string $email = null;
 
     public ?string $email_confirmation = null;
@@ -61,7 +61,11 @@ class Reset extends Component
 
         session()->flash('status', __($status));
 
-        $this->redirect(route('dashboard'));
+        if ($status !== Password::PASSWORD_RESET) {
+            return;
+        }
+
+        $this->redirect(route('login'));
     }
 
     #[Computed]
