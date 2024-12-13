@@ -33,7 +33,7 @@ class Reset extends Component
         $this->token = request('email', $email);
 
         if ($this->tokenNotValid()) {
-            session()->flash('Token Invalid');
+            session()->flash('status', 'Invalid or expired token.');
             $this->redirectRoute('login');
         }
     }
@@ -52,10 +52,10 @@ class Reset extends Component
             $this->only('email', 'password', 'password_confirmation', 'token'),
             function(User $user, $password) {
                 $user->password = $password;
-                $user->remember_token = Str::random();
+                $user->remember_token = Str::random(60);
                 $user->save();
 
-                event(new PasswordReset($user));
+                // event(new PasswordReset($user));
             }
         );
 
@@ -76,14 +76,17 @@ class Reset extends Component
 
     private function tokenNotValid(): bool
     {
-        $tokens = DB::table('password_reset_tokens')->get(['token']);
-
+        $tokens = DB::table('password_reset_tokens')
+        ->get(['token', 'email']);
+    
+        // Verifique se o token existe no banco para o e-mail fornecido
         foreach ($tokens as $t) {
-            if (Hash::check($t->token, $this->token)) {
-                return false;
+            if ($t->email === $this->email && Hash::check($this->token, $t->token)) {
+                return false; // Token válido
             }
         }
-
-        return true;
+    
+        return true; // Token inválido ou não encontrado
     }
+    
 }

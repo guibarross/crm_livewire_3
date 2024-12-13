@@ -6,6 +6,7 @@ use App\Livewire\Auth\Recovery;
 use App\Livewire\Auth\Register;
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
