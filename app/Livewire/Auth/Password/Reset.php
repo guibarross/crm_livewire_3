@@ -17,12 +17,13 @@ class Reset extends Component
 {
     public ?string $token = null;
 
-    #[Rule(['required', 'email'])]
+    #[Rule(['required', 'email', 'confirmed'])]
     public ?string $email = null;
 
+    #[Rule(['required', 'same:email'])]
     public ?string $email_confirmation = null;
 
-    #[Rule(['required', 'confirmed'])]
+    #[Rule(['required', 'confirmed', 'min:6'])]
     public ?string $password = null;
 
     public ?string $password_confirmation = null;
@@ -47,26 +48,27 @@ class Reset extends Component
     public function updatePassword(): void
     {
         $this->validate();
-
-       $status = Password::reset(
+    
+        $status = Password::reset(
             $this->only('email', 'password', 'password_confirmation', 'token'),
             function(User $user, $password) {
                 $user->password = Hash::make($password); 
                 $user->remember_token = Str::random(60);
                 $user->save();
-
+    
                 event(new PasswordReset($user));
             }
         );
-
+    
         session()->flash('status', __($status));
-
+    
         if ($status !== Password::PASSWORD_RESET) {
             return;
         }
-
+    
         $this->redirect(route('login'));
     }
+    
 
     #[Computed]
     public function obfuscatedEmail(): string
