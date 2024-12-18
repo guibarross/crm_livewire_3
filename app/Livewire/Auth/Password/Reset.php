@@ -30,7 +30,7 @@ class Reset extends Component
     public function mount(?string $token = null, ?string $email = null): void
     {
         $this->token = request('token', $token);
-        $this->token = request('email', $email);
+        $this->email = request('email', $email);
 
         if ($this->tokenNotValid()) {
             session()->flash('status', 'Invalid or expired token.');
@@ -51,11 +51,11 @@ class Reset extends Component
        $status = Password::reset(
             $this->only('email', 'password', 'password_confirmation', 'token'),
             function(User $user, $password) {
-                $user->password = $password;
+                $user->password = Hash::make($password); 
                 $user->remember_token = Str::random(60);
                 $user->save();
 
-                // event(new PasswordReset($user));
+                event(new PasswordReset($user));
             }
         );
 
@@ -69,7 +69,7 @@ class Reset extends Component
     }
 
     #[Computed]
-    public function obfuscatedEmail()
+    public function obfuscatedEmail(): string
     {
         return obfuscate_email($this->email);
     }
